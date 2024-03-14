@@ -301,6 +301,22 @@ function showInstructionScreen() {
   fill(255);
   textSize(20);
   text("Begin", width / 2, height / 2 + 140);
+
+
+  textSize(18); // Adjusted font size
+  textAlign(LEFT, TOP); // Adjusted text alignment
+
+  // Additional text
+  fill(color(0));
+  let textX = 50; // X position for the additional text
+  let textY = height / 2 - 150; // Starting Y position for the additional text
+  let textLeading = 24; // Line spacing
+  let textWidth = width - 100; // Width of the text block
+  let additionalText = "Your objective is to correctly place each card into its designated slot. To play, click and hold on a card, then drag it to the slot where you think it belongs. Release the mouse to drop the card into place.\n\nRemember, each card has a specific slot it must occupy. When all cards have been placed, you'll see an option to check your answers. If you're correct, you'll have the option to play again.";
+
+  text(additionalText, textX, textY, textWidth, height - textY); // Display additional text with specified width and height
+
+
 }
 
 function showScreenWin() {
