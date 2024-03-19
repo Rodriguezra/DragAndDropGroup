@@ -320,20 +320,17 @@ function showInstructionScreen() {
 
 }
 
+
+
+
 function showScreenWin() {
   // Move extra icons off screen when win page is up
   setCardsoffScreen();
   const c = color(0, 179, 115);
   background(c);
 
-  /**
-  // Set text properties
-  fill(255); // White color
-  textSize(32); // Font size
-  textAlign(CENTER, CENTER); // Text alignment
-  text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 100);
 
-**/
+
 
   // Set text properties
   fill(255, alphaValue); // White color with alpha value
@@ -353,6 +350,8 @@ function showScreenWin() {
   textSize(20);
   text("Restart", width / 2, height / 2 + 140);
 }
+
+
 
 function showScreenLose() {
   setCardsoffScreen();
