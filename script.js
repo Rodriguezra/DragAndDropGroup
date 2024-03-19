@@ -4,7 +4,8 @@ let EncrycptionImg, CipheredDataImg, publicKeyImg, privateKeyImg, plaintextImg, 
 let center1, center2, center3, center4, center5;
 let screen = 0;
 let widthConstraint, heightConstraint;
-
+let alphaValue = 0;
+let fadeSpeed = 5;
 let confirm = false;
 let cancel = false;
 
@@ -301,7 +302,26 @@ function showInstructionScreen() {
   fill(255);
   textSize(20);
   text("Begin", width / 2, height / 2 + 140);
+
+
+  textSize(18); // Adjusted font size
+  textAlign(LEFT, TOP); // Adjusted text alignment
+
+  // Additional text
+  fill(color(0));
+  let textX = 50; // X position for the additional text
+  let textY = height / 2 - 150; // Starting Y position for the additional text
+  let textLeading = 24; // Line spacing
+  let textWidth = width - 100; // Width of the text block
+  let additionalText = "Your objective is to correctly place each card into its designated slot. To play, click and hold on a card, then drag it to the slot where you think it belongs. Release the mouse to drop the card into place.\n\nRemember, each card has a specific slot it must occupy. When all cards have been placed, you'll see an option to check your answers. If you're correct, you'll have the option to play again.";
+
+  text(additionalText, textX, textY, textWidth, height - textY); // Display additional text with specified width and height
+
+
 }
+
+
+
 
 function showScreenWin() {
   // Move extra icons off screen when win page is up
@@ -309,12 +329,20 @@ function showScreenWin() {
   const c = color(0, 179, 115);
   background(c);
 
+
+
+
   // Set text properties
-  fill(255); // White color
+  fill(255, alphaValue); // White color with alpha value
   textSize(32); // Font size
   textAlign(CENTER, CENTER); // Text alignment
   text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 100);
 
+  // Animate alpha value for fading effect
+  alphaValue += fadeSpeed;
+  if (alphaValue > 255 || alphaValue < 0) {
+    fadeSpeed *= -1; // Reverse the fade direction
+  }
   // Restart button
   fill(255);
   rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
@@ -322,6 +350,8 @@ function showScreenWin() {
   textSize(20);
   text("Restart", width / 2, height / 2 + 140);
 }
+
+
 
 function showScreenLose() {
   setCardsoffScreen();
