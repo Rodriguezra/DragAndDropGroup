@@ -70,6 +70,17 @@ function mousePressed() {
       cancel = true;
     }
   }
+
+  //If on the game screen
+  if (screen === 2) {
+    // Check if the "Learn More" button is clicked
+    if (mouseX > width - 160 && mouseX < width - 20 && mouseY > height - 120 && mouseY < height - 80) 
+    {
+      // Display a link to a website for further learning
+      window.open('https://en.wikipedia.org/wiki/Public-key_cryptography');
+    }
+  }
+  
 }
 
 
@@ -227,6 +238,20 @@ function draw() {
     fill(0);
     textAlign(LEFT, TOP); // Text alignment
     text("Asymmetric encryption, also known as public-key encryption, is a type of encryption algorithm that uses a pair of keys (public and private) to encrypt and decrypt data. The image provided is a flow chart showcasing the process of asymmetric encryption. As you can see the steps seem to have been mixed up. Rearrange the list so that it follows steps 1-5 in the correct order.", 30, 20, 600, 360);
+
+    // Learn More Button Border
+    stroke(0);
+    strokeWeight(2);
+    fill(255);
+    rect(width - 160, height - 120, 140, 40, 10);
+    // Learn More Button
+    noStroke();
+    fill(255);
+    rect(width - 160 + 1, height - 120 + 1, 138, 38, 10);       // Learn More Button Text
+    fill(0);
+    textSize(16);
+    textAlign(CENTER, CENTER);
+    text("Learn More", width - 90, height - 100);
 
 
     for (let card of cards) {
