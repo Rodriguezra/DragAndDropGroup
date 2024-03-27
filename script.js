@@ -40,7 +40,7 @@ function setCardsoffScreen() {
   }
   else {
     WhiteLocked.pos = { x: -100000, y: -200 };
-    }
+  }
 }
 
 function mousePressed() {
@@ -67,11 +67,11 @@ function mousePressed() {
   else if (screen == 2 && confirm && !cancel) {
     if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
       if (
-        dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
-        dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
-        dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
-        dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
-        dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
+          dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
+          dist(publicKey.x, publicKey.y, center2.x, center2.y) < 1 &&
+          dist(CipheredData.x, CipheredData.y, center3.x, center3.y) < 1 &&
+          dist(privateKey.x, privateKey.y, center4.x, center4.y) < 1 &&
+          dist(decriptedplaintxt.x, decriptedplaintxt.y, center5.x, center5.y) < 1
       ) {
         console.log("you win!");
         screen = 3;
@@ -95,7 +95,7 @@ function mousePressed() {
   //If on the game screen
   if (screen === 2) {
     // Check if the "Learn More" button is clicked
-    if (mouseX > width - 160 && mouseX < width - 20 && mouseY > height - 80 && mouseY < height - 50) 
+    if (mouseX > width - 160 && mouseX < width - 20 && mouseY > height - 80 && mouseY < height - 50)
     {
       // Display a link to a website for further learning
       window.open('https://en.wikipedia.org/wiki/Public-key_cryptography');
@@ -268,7 +268,7 @@ function draw() {
     // Set text properties
     const c = color(0, 179, 115);
     stroke(0);
-    fill(255); 
+    fill(255);
     rect(20, 10, 620, 74, 10);
     // Display text content
     textSize(12);
@@ -395,18 +395,18 @@ function showScreenWin() {
 
 
 
-  // Set text properties
-  fill(255, alphaValue); // White color with alpha value
-  textSize(32); // Font size
-  textAlign(CENTER, CENTER); // Text alignment
+  //Set text properties
+  fill(255, alphaValue);
+  textSize(32);
+  textAlign(CENTER, CENTER);
   text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 100);
 
-  // Animate alpha value for fading effect
+  //Animate alpha value for fading effect
   alphaValue += fadeSpeed;
   if (alphaValue > 255 || alphaValue < 0) {
-    fadeSpeed *= -1; // Reverse the fade direction
+    fadeSpeed *= -1; //Reverse the fade direction
   }
-  // Restart button
+  //Restart button
   fill(255);
   rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
   fill(0);
@@ -420,13 +420,22 @@ function showScreenLose() {
   const r = color(195, 16, 16);
   background(r);
   setCardsoffScreen();
-  // Set text properties
-  fill(255); // White color
-  textSize(32); // Font size
-  textAlign(CENTER, CENTER); // Text alignment
+
+
+  //Set text properties
+  fill(255, alphaValue);
+  textSize(32);
+  textAlign(CENTER, CENTER);
   text("Not Quite!\n\nTry again?", width / 2, height / 2 - 100);
 
-  // Instructions button
+  //Animate alpha value for fading effect
+  alphaValue += fadeSpeed;
+  if (alphaValue > 255 || alphaValue < 0) {
+    fadeSpeed *= -1; //Reverse the fade direction
+  }
+
+
+  //Restart button
   fill(255);
   rect(width / 2 - 75, height / 2 + 120, 150, 40, 10);
   fill(0);
