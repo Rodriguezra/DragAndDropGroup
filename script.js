@@ -51,7 +51,7 @@ function mousePressed() {
       screen = 1;
     }
   }
-  else if (screen === 1 || screen === 3 || screen == 4) {// if on the instructions/restart/lose screen
+  else if (screen === 1 || screen === 3 || screen === 4) {// if on the instructions/restart/lose screen
     //press begin button or restart button pressed
     if (mouseX > width / 2 - 50 && mouseX < width / 2 + 50 && mouseY > height / 2 + 120 && mouseY < height / 2 + 160) {
       screen = 2;
@@ -62,9 +62,10 @@ function mousePressed() {
       decriptedplaintxt.position = createVector(width / 2, height - (height / 3) + 135);
       Encrycption.pos = { x: width / 2 + 10, y: 160 + 85 };
       WhiteKey.pos = { x: width / 2 + 10, y: 160 + 85 };
+
     }
   }
-  else if (screen == 2 && confirm && !cancel) {
+  else if (screen === 2 && confirm && !cancel) {
     if (mouseX > width / 2 + 20 && mouseX < width / 2 + 140 && mouseY > height / 2 + 170 && mouseY < height / 2 + 210) {
       if (
           dist(plaintext.x, plaintext.y, center1.x, center1.y) < 1 &&
@@ -77,11 +78,9 @@ function mousePressed() {
         screen = 3;
         showScreenWin();
         confirm = false;
-      }
-      else {
+      }else {
         console.log("you lose!");
         screen = 4;
-        background("red");
         showScreenLose();
         confirm = false;
       }
@@ -159,11 +158,11 @@ function snapToCenter(card) {
 function checkIfConfirm() {
   let numSnapped = 0;
   for (let card of cards) {
-    if ((card.x == center1.x && card.y == center1.y) || (card.x == center2.x && card.y == center2.y) || (card.x == center3.x && card.y == center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
+    if ((card.x === center1.x && card.y === center1.y) || (card.x === center2.x && card.y === center2.y) || (card.x === center3.x && card.y === center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
       numSnapped++;
     }
   }
-  if (numSnapped == 5) {
+  if (numSnapped === 5) {
     confirm = true;
   }
 }
@@ -387,25 +386,32 @@ function showInstructionScreen() {
 
 
 function showScreenWin() {
-  // Move extra icons off screen when win page is up
+  //Move extra icons off screen when win page is up
   const c = color(0, 179, 115);
   background(c);
   setCardsoffScreen();
-
-
 
 
   //Set text properties
   fill(255, alphaValue);
   textSize(32);
   textAlign(CENTER, CENTER);
-  text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 100);
+  text("You Win!\n\nThanks for playing!", width / 2, height / 2 - 200);
 
   //Animate alpha value for fading effect
   alphaValue += fadeSpeed;
   if (alphaValue > 255 || alphaValue < 0) {
     fadeSpeed *= -1; //Reverse the fade direction
   }
+
+
+  //Display the unlocked key image
+  let imgWidth = 200;
+  let imgHeight = 200;
+  let imgX = 650/2 - imgWidth / 2;
+  let imgY = height/2 + 50- imgHeight / 2 - 50;
+  image(WhiteUnlockedImg, imgX, imgY, imgWidth, imgHeight);
+
   //Restart button
   fill(255);
   rect(width / 2 - 50, height / 2 + 120, 100, 40, 10);
@@ -417,8 +423,8 @@ function showScreenWin() {
 
 
 function showScreenLose() {
-  const r = color(195, 16, 16);
-  background(r);
+  const c = color(195, 16, 16);
+  background(c);
   setCardsoffScreen();
 
 
@@ -426,7 +432,7 @@ function showScreenLose() {
   fill(255, alphaValue);
   textSize(32);
   textAlign(CENTER, CENTER);
-  text("Not Quite!\n\nTry again?", width / 2, height / 2 - 100);
+  text("Not Quite!\n\nTry again?", width / 2, height / 2 - 230);
 
   //Animate alpha value for fading effect
   alphaValue += fadeSpeed;
@@ -434,6 +440,11 @@ function showScreenLose() {
     fadeSpeed *= -1; //Reverse the fade direction
   }
 
+
+  //display locked image
+  let imgX = 650 / 2 - WhiteLockedImg.width / 2;
+  let imgY = height / 2 - WhiteLockedImg.height / 2 - 20;
+  image(WhiteLockedImg, imgX, imgY);
 
   //Restart button
   fill(255);
