@@ -420,11 +420,11 @@ function windowResized() { //Adjusts size of canvas and screen elements based on
   privateKey.originalPosition = createVector(width * .7075, height - 105);
   BlackKey.scale = .0007 * width;
   BlackKey.pos = { x: width * .5, y: height * .5 };
-  center1 = createVector(width * .35, height * .487);
-  center2 = createVector(width * .42, height * .705);
-  center3 = createVector(width * .5, height * .51);
-  center4 = createVector(width * .575, height * .7);
-  center5 = createVector(width * .648, height * .487);
+  center1 = createVector(width * .368, height * .487);
+  center2 = createVector(width * .435, height * .68);
+  center3 = createVector(width * .498, height * .51);
+  center4 = createVector(width * .56, height * .68);
+  center5 = createVector(width * .626, height * .487);
   canvas.position(0, 0);
   canvas.style('z-index', '1');
 }
