@@ -196,11 +196,17 @@ function snapToCenter(card) {
 function checkIfConfirm() { //submit screen appears if all 5 cards have been snapped to a position
   let numSnapped = 0;
   for (let card of cards) {
-    if ((card.x === center1.x && card.y === center1.y) || (card.x === center2.x && card.y === center2.y) || (card.x === center3.x && card.y === center3.y) || (card.x == center4.x && card.y == center4.y) || (card.x == center5.x && card.y == center5.y)) {
-      numSnapped++;
+    if (
+      dist(card.x, card.y, center1.x, center1.y) < 1 ||
+      dist(card.x, card.y, center2.x, center2.y) < 1 ||
+      dist(card.x, card.y, center3.x, center3.y) < 1 ||
+      dist(card.x, card.y, center4.x, center4.y) < 1 ||
+      dist(card.x, card.y, center5.x, center5.y) < 1
+    ) {
+        numSnapped++;
     }
   }
-  if (numSnapped === 5) {
+  if (numSnapped == 5) {
     confirm = true;
   }
 }
@@ -425,8 +431,7 @@ function windowResized() { //Adjusts size of canvas and screen elements based on
   center3 = createVector(width * .498, height * .51);
   center4 = createVector(width * .56, height * .68);
   center5 = createVector(width * .626, height * .487);
-  canvas.position(0, 0);
-  canvas.style('z-index', '1');
+  canvas.pos = { x: 0, y: 0 }
 }
 
 function showStartScreen() {
