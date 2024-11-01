@@ -11,6 +11,7 @@ let buttonPress, cardPress, cardSnap, gameMusic, winJingle;
 let Encryption, CipheredData, publicKey, privateKey, plaintext, decriptedplaint, BlackKey, loseComp, lockedComputer, Chip;
 let EncryptionImg, CipheredDataImg, publicKeyImg, privateKeyImg, plaintextImg, decriptedplaintxtImg, BlackKeyImg, loseCompImg, lockedComputerImg, ChipImg;
 let center1, center2, center3, center4, center5;
+let slider, sliderY, volume0Img, volume1Img, gameAmp, effectAmp, muted, prevAmp;
 let screen = 0;
 let widthConstraint, heightConstraint;
 let alphaValue = 0;
@@ -120,6 +121,10 @@ function mousePressed() {
       window.open('https://ssd.eff.org/module/deep-dive-end-end-encryption-how-do-public-key-encryption-systems-work');
     }
   }
+
+    // mute button pressed
+    let buttonCenterDist = dist(mouseX, mouseY, 40, height - 40);
+    if (buttonCenterDist < 25) { muted = !muted; }
 }
 
 
@@ -228,6 +233,8 @@ function preload() { //load fonts, images and sounds
   cardSnap = loadSound('assets/AsyEnc/cardSnap.wav');
   gameMusic = loadSound('assets/AsyEnc/gameMusic.wav');
   winJingle = loadSound('assets/AsyEnc/winJingle.wav');
+  volume0Img = loadImage('assets/AsyEnc/volume0.png');
+  volume1Img = loadImage('assets/AsyEnc/volume1.png');
 }
 
 function setup() {
@@ -307,6 +314,22 @@ function setup() {
   loseComp.pos = { x: -400, y: -400 };
   lockedComputer.pos = { x: -400, y: -400 };
   Chip.pos = { x: -400, y: -400 };
+
+  // adjust volumes
+  gameAmp = 0.15;
+  effectAmp = 0.5;
+
+  gameMusic.amp(gameAmp);
+  buttonPress.amp(effectAmp);
+  cardPress.amp(effectAmp);
+  cardSnap.amp(effectAmp);
+  winJingle.amp(effectAmp);
+
+  // set up volume control
+  slider = createSlider(0, 1, 1, 0);
+  muted = false;
+  prevAmp = 1;
+  sliderY = height + 10;
 }
 
 
@@ -408,6 +431,8 @@ function draw() {
   else if (screen === 4) {
     showScreenLose();
   }
+
+  volumeControl();
 }
 
 function windowResized() { //Adjusts size of canvas and screen elements based on screen size 
@@ -517,7 +542,7 @@ function showInstructionScreen() {
 function showScreenWin() {
   if (playOnce) {
     gameMusic.stop();
-    winJingle.loop();
+    winJingle.play();
   }
   playOnce = false;
   //Move extra icons off screen when win page is up
@@ -602,4 +627,78 @@ function showScreenLose() {
   let imgY2 = loseComp.height - 20;
   scale(.001 * width);
   image(loseCompImg, imgX2, imgY2);
+}
+
+function volumeControl() {
+    // mute button
+    fill(0);
+    circle(40, height - 40, 50);
+
+    fill(235);
+    circle(40, height - 40, 44);
+
+    // button images
+    let x = 990;
+    let y = 34250;
+
+    if (muted) {
+        scale(.000013 * width);
+        image(volume0Img, x, y);
+        scale(1 / (.000013 * width));
+    }
+    else {
+        scale(.000013 * width);
+        image(volume1Img, x, y);
+        scale(1 / (.000013 * width));
+    }
+
+    // volume slider movement
+    let buttonCenterDist = dist(mouseX, mouseY, 40, height - 40);
+
+    if (sliderY > height - 50 && mouseX < 250 && mouseY > height - 80) { // mouse in general area
+        sliderY -= 5;
+    }
+    else if (sliderY <= height + 10 && (mouseX >= 250 || mouseY <= height - 80)) { // mouse outside general area
+        sliderY += 5;
+    }
+
+    // volume slider
+    slider.position(90, sliderY);
+
+    fill(0);
+    circle(95, sliderY + 10, 30);
+    circle(220, sliderY + 10, 30);
+    rectMode(CENTER);
+    rect(157.5, sliderY + 10, 125, 30);
+
+    fill(235);
+    circle(95, sliderY + 10, 24);
+    circle(220, sliderY + 10, 24);
+    rectMode(CENTER);
+    rect(157.5, sliderY + 10, 125, 24);
+
+    // slider volume logic
+    let currAmp = slider.value();
+
+    // if the slider is moved while muted, unmute
+    if (muted && (prevAmp != currAmp)) { muted = false; }
+
+    if (currAmp <= 0) { muted = true; }
+
+    if (!muted) {
+        gameMusic.amp(gameAmp * currAmp);
+        buttonPress.amp(effectAmp * currAmp);
+        cardPress.amp(effectAmp * currAmp);
+        cardSnap.amp(effectAmp * currAmp);
+        winJingle.amp(effectAmp * currAmp);
+    }
+    else {
+        gameMusic.amp(0);
+        buttonPress.amp(0);
+        cardPress.amp(0);
+        cardSnap.amp(0);
+        winJingle.amp(0);
+    }
+
+    prevAmp = currAmp;
 }
